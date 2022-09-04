@@ -1,0 +1,4 @@
+
+
+def ManagersInitApp(app):
+    return
