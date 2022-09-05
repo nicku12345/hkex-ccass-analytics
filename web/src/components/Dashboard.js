@@ -8,7 +8,9 @@ function Dashboard() {
 	//const [[trendRows, trendStockCode, trendBars, trendParticipants], setTrendAnalyticsTabProps] = useState([[], "", [], []])
 	const [trendRows, setTrendRows] = useState([])
 	const [trendStockCode, setTrendStockCode] = useState("")
-	const [[trendBars, trendParticipants], setTrendBarsAndParticipants] = useState([[], []])
+	const [trendBars, setTrendBars] = useState([])
+	const [trendParticipants, setTrendParticipants] = useState([])
+	const [trendAllParticipants, setTrendAllParticipants] = useState([])
 
 	const [transactionRows, setTransactionRows] = useState([])
 
@@ -53,7 +55,10 @@ function Dashboard() {
 					participants={trendParticipants}
 					setRows={setTrendRows}
 					setStockCode={setTrendStockCode}
-					setBarsAndParticipants={setTrendBarsAndParticipants}
+					setBars={setTrendBars}
+					setParticipants={setTrendParticipants}
+					allParticipants={trendAllParticipants}
+					setAllParticipants={setTrendAllParticipants}
 				/>
 				:
 				<TransactionAnalyticsTab

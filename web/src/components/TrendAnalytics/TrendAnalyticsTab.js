@@ -12,7 +12,7 @@ import AlertDialog from "../Shared/AlertDialog";
 
 
 function TrendAnalyticsTab( props ) {
-	const { rows, stockCode, bars, participants, setRows, setStockCode, setBarsAndParticipants } = props
+	const { rows, stockCode, bars, participants, setRows, setStockCode, setBars, setParticipants, allParticipants, setAllParticipants } = props
 	const [isLoading, setIsLoading] = useState(false)
 	const [isAlert, setIsAlert] = useState(false)
 	const [alertMsg, setAlertMsg] = useState("")
@@ -55,9 +55,7 @@ function TrendAnalyticsTab( props ) {
 				if (!participantNames.has(participant.ParticipantName))
 				{
 					participantNames.add(participant.ParticipantName)
-					chartParticipants.push({
-						ParticipantName: participant.ParticipantName
-					})
+					chartParticipants.push(participant.ParticipantName)
 				}
 				bar[participant.ParticipantName] = participant.ShareHolding / totalShareholding
 
@@ -66,7 +64,9 @@ function TrendAnalyticsTab( props ) {
 			chartBars.push(bar)
 		})
 
-		setBarsAndParticipants([chartBars, chartParticipants])
+		setBars(chartBars)
+		setParticipants(chartParticipants)
+		setAllParticipants(chartParticipants)
 		setRows(tableRows)
 	}
 
@@ -75,7 +75,7 @@ function TrendAnalyticsTab( props ) {
 			<LoadingDialog open={isLoading} />
 			<AlertDialog isAlert={isAlert} alertMsg={alertMsg} setIsAlert={setIsAlert} setAlertMsg={setAlertMsg}/>
 			<TrendAnalyticsForm handleFormOnSubmit={handleFormOnSubmit}></TrendAnalyticsForm>
-			<TrendAnalyticsChart stockCode={stockCode} bars={bars} participants={participants}></TrendAnalyticsChart>
+			<TrendAnalyticsChart stockCode={stockCode} bars={bars} participants={participants} allParticipants={allParticipants} setAllParticipants={setAllParticipants} setParticipants={setParticipants}></TrendAnalyticsChart>
 			<TrendAnalyticsTable rows={rows}></TrendAnalyticsTable>
 		</Stack>
 	)
