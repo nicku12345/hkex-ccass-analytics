@@ -81,7 +81,6 @@ class AnalyticsManager(BaseManager):
                     unitDifference -= prevDateParticipants[(p.ParticipantId, p.ParticipantName)].Shareholding
 
                 weightDifference = unitDifference / totShareAtDate
-                print(weightDifference)
 
                 curDateParticipants[(p.ParticipantId, p.ParticipantName)] = p
                 if abs(weightDifference) < threshold:

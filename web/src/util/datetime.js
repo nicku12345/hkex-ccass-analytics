@@ -1,10 +1,12 @@
 
-export function getTodateString() {
-	let today = new Date()
-	const yyyy = `${today.getFullYear()}`
+export function getYesterdayString() {
+	let yesterday = new Date()
+	yesterday.setDate(yesterday.getDate() - 1)
+
+	const yyyy = `${yesterday.getFullYear()}`
 	// month is 0-indexed
-	const mm = today.getMonth() >= 9 ? `${1 + today.getMonth()}` : `0${1 + today.getMonth()}`
-	const dd = today.getDate() >= 10 ? `${today.getDate()}` : `0${today.getDate()}`
+	const mm = yesterday.getMonth() >= 9 ? `${1 + yesterday.getMonth()}` : `0${1 + yesterday.getMonth()}`
+	const dd = yesterday.getDate() >= 10 ? `${yesterday.getDate()}` : `0${yesterday.getDate()}`
 
 	return yyyy + "-" + mm + "-" + dd;
 }

@@ -2,13 +2,13 @@ import React, { useState } from "react"
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import { getTodateString } from "../../util/datetime"
+import { getYesterdayString } from "../../util/datetime"
 
 
 function TransactionAnalyticsForm( props ) {
 	const stockCodeDefaultValue = "00001"
-	const startDateDefaultValue = getTodateString()
-	const endDateDefaultValue = getTodateString()
+	const startDateDefaultValue = getYesterdayString()
+	const endDateDefaultValue = getYesterdayString()
 	const thresholdDefaultValue = 0.01
 
 	const [stockCode, setStockCode] = useState(stockCodeDefaultValue)

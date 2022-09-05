@@ -29,4 +29,6 @@ class ParticipantsRepository(BaseRepository):
         values = [participant.SQLValue() for participant in participants]
 
         query += ",\n".join(values)
+        self._db.session.expunge_all()
         self._db.session.execute(query)
+        self._db.session.commit()

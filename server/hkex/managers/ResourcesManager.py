@@ -99,6 +99,10 @@ class ResourcesManager(BaseManager):
             raise Exception(f"External server is under maintenance. Full response from external API: "
                             f"{soup.prettify()}")
 
+        searchRemarks = soup.find(class_="ccass-search-remarks")
+        if searchRemarks is None:
+            self._logger.warn(f"No data fetched from site. stockCode={stockCode}, date={yyyy}-{mm}-{dd}")
+            raise Exception(f"External server could not provide data for {stockCode} on {yyyy}-{mm}-{dd}")
 
         tag = soup.find(class_="ccass-search-remarks").find(class_="summary-value")
         totalShare = int(tag.string.replace(",",""))

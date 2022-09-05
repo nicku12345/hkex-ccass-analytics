@@ -2,8 +2,13 @@ import axios from "axios"
 import { MOCK_trendAnalytics } from '../fake/MOCK_trendAnalytics'
 import { MOCK_transactionsAnalytics } from '../fake/MOCK_transactionsAnalytics'
 
-function getHost(env) {
-	return "http://127.0.0.1:5000"
+function getHost() {
+	switch (process.env.REACT_APP_NODE_ENV) {
+		case "production":
+			return "http://ec2-18-237-117-90.us-west-2.compute.amazonaws.com:5000"
+		default:
+			return "http://localhost:5000"
+	}
 }
 
 export function getTrendAnalytics(stockCode, startDate, endDate) {
