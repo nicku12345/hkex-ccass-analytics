@@ -39,7 +39,7 @@ function TrendAnalyticsChartFilterFormGroup( props ) {
 				<FormGroup>
 					{
 						allParticipants.map((participantName) => 
-							<FormControlLabel key={`FCL-${participantName}`} control={<Checkbox onChange={getHandleCheckBoxOnChange(participantName)} defaultChecked/>} label={participantName}/>
+							<FormControlLabel key={`FCL-${participantName}`} control={<Checkbox onChange={getHandleCheckBoxOnChange(participantName)} checked={participants.includes(participantName)}/>} label={participantName}/>
 						)
 					}
 				</FormGroup>
