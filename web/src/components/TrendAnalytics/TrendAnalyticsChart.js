@@ -31,7 +31,24 @@ function TrendAnalyticsChartFilterFormGroup( props ) {
 	}
 
 	return (
-		<Box>
+		<Box
+			sx={{
+				display: 'grid',
+				bgcolor: (theme) =>
+					theme.palette.mode === 'dark' ? '#101010' : 'grey.100',
+				color: (theme) =>
+					theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
+				border: '1px solid',
+				borderColor: (theme) =>
+					theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
+				p: 1,
+				borderRadius: 2,
+				gap:2,
+				maxWidth:"500px",
+				marginLeft: "auto",
+				marginRight: "auto"
+			}}
+		>
 			<Button variant="contained" onClick={() => setOpen(!open)}>{(open ? "Close" : "Open") + " Chart Filter"}</Button>
 			{
 				open
@@ -57,7 +74,7 @@ function TrendAnalyticsChart( props ) {
 		allParticipants.length > 0
 		?
 		<Stack spacing={2}>
-			<Box sx={{ minWidth:"100%"}}>
+			<Box>
 				<Chart dataSource={ bars }>
 					<Title text={stockCode.length > 0 ? `Top shareholding participants of ${stockCode}` : ""}/>
 					<CommonSeriesSettings argumentField="Date" valueField="Weight" type="line"/>
