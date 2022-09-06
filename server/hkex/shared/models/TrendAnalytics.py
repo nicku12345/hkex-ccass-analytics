@@ -8,9 +8,9 @@ from hkex.database.models.ShareHolding import ShareHolding
 @dataclass
 class TrendAnalytics:
 
-    Date            : date
-    TotalShareHolding    : TotalShareHolding
-    TopParticipants : list[Participant]
+    Date                 : date
+    TotalShareHolding    : ShareHolding
+    TopParticipants      : list[Participant]
 
     def Serialize(self):
         return {
