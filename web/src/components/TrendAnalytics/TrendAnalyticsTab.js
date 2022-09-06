@@ -5,7 +5,7 @@ import TrendAnalyticsChart from "./TrendAnalyticsChart";
 import { v4 as uuid } from 'uuid';
 // import { MOCK_trendAnalytics } from '../../fake/MOCK_trendAnalytics';
 import { Stack } from "@mui/system";
-import { getTrendAnalytics } from "../../util/hkexAnalyticsHelper";
+import { checkStockCodeValidaty, getTrendAnalytics } from "../../util/hkexAnalyticsHelper";
 import LoadingDialog from "../Shared/LoadingDialog";
 import AlertDialog from "../Shared/AlertDialog";
 
@@ -19,6 +19,14 @@ function TrendAnalyticsTab( props ) {
 
 
 	const handleFormOnSubmit = async (stockCode, startDate, endDate) => {
+		const [ stockCodeValid, errMsg ] = checkStockCodeValidaty(stockCode)
+		if (!stockCodeValid)
+		{
+			setIsAlert(true)
+			setAlertMsg(errMsg)
+			return
+		}
+
 		setStockCode(stockCode)
 
 		let tableRows = []
@@ -33,7 +41,8 @@ function TrendAnalyticsTab( props ) {
 		if (!api_success)
 		{
 			setIsAlert(true)
-			setAlertMsg("External API failed. This error happens may be because external server is under maintenance or unavailable. For now some dummy test data is being rendered.")
+			setAlertMsg("External API failed. This error may happen because external server is under maintenance or the stock data on requested date range is unavailable. Please consider querying for a smaller date range. For now some dummy test data is being rendered.")
+			setStockCode("(Fake) 00001 ")
 		}
 
 		api_data.forEach((trendAnalytics) => {
@@ -73,7 +82,7 @@ function TrendAnalyticsTab( props ) {
 	return (
 		<Stack spacing={5}>
 			<LoadingDialog open={isLoading} />
-			<AlertDialog isAlert={isAlert} alertMsg={alertMsg} setIsAlert={setIsAlert} setAlertMsg={setAlertMsg}/>
+			<AlertDialog isAlert={isAlert} alertMsg={alertMsg} setIsAlert={setIsAlert}/>
 			<TrendAnalyticsForm handleFormOnSubmit={handleFormOnSubmit}></TrendAnalyticsForm>
 			<TrendAnalyticsChart stockCode={stockCode} bars={bars} participants={participants} allParticipants={allParticipants} setAllParticipants={setAllParticipants} setParticipants={setParticipants}></TrendAnalyticsChart>
 			<TrendAnalyticsTable rows={rows}></TrendAnalyticsTable>

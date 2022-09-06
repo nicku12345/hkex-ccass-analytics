@@ -5,11 +5,11 @@ import { Button, DialogContent, Stack } from '@mui/material';
 
 
 function AlertDialog( props ) {
-	const { isAlert, alertMsg, setIsAlert, setAlertMsg } = props;
+	const { isAlert, alertMsg, setIsAlert } = props;
 
 	const handleButtonOnClick = () => {
 		setIsAlert(false)
-		setAlertMsg("")
+		// setAlertMsg("")
 	}
 
 	return (

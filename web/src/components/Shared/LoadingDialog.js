@@ -16,7 +16,7 @@ function LoadingDialog( props ) {
 			</Stack>
 			<DialogContent>
 				Note: 
-				It may a few minutes to collect data analytics. 
+				It may take a few minutes to collect data analytics. 
 				Please consider query for a smaller date range, e.g. 1 month or 1 week.
 				Because HKEX only offers data within the most recent year, old data may be unavailable.
 			</DialogContent>

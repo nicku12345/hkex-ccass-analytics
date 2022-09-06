@@ -11,9 +11,28 @@ function getHost() {
 	}
 }
 
+export function checkStockCodeValidaty(stockCode) {
+	const disallowedCharacters = "~!@#$%^&*()"
+	if (stockCode.length === 0)
+		return [ false, "Stock Code is empty" ]
+	
+	for (let i=0; i<stockCode.length; i++) { 
+		if (disallowedCharacters.includes(stockCode[i]))
+			return [ false, "Invalid Stock Code" ]
+	}
+
+	return [ true, "" ]
+}
+
 export function getTrendAnalytics(stockCode, startDate, endDate) {
-	const url = getHost() + `/api/analytics/trends?stockCode=${stockCode}&startDate=${startDate}&endDate=${endDate}`
-	return axios.get(url).then((res) => {
+	const url = getHost() + `/api/analytics/trends`
+	const params = {
+		stockCode: stockCode,
+		startDate: startDate,
+		endDate: endDate
+	}
+
+	return axios.get(url, { params }).then((res) => {
 		return [ true, res.data ]
 	}).catch((err) => {
 		return [ false, MOCK_trendAnalytics ]
@@ -21,8 +40,15 @@ export function getTrendAnalytics(stockCode, startDate, endDate) {
 }
 
 export function getTransactionAnalytics(stockCode, startDate, endDate, threshold) {
-	const url = getHost() + `/api/analytics/transactions?stockCode=${stockCode}&startDate=${startDate}&endDate=${endDate}&threshold=${threshold}`
-	return axios.get(url).then((res) => {
+	const url = getHost() + `/api/analytics/transactions`
+	const params = {
+		stockCode: stockCode,
+		startDate: startDate,
+		endDate: endDate,
+		threshold: threshold
+	}
+
+	return axios.get(url, { params }).then((res) => {
 		return [ true, res.data ]
 	}).catch((err) => {
 		return [ false, MOCK_transactionsAnalytics ]
