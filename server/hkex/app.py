@@ -13,6 +13,8 @@ class HKEXApp:
             from hkex.config.appsettings_dev import APPSETTINGS
         elif ENV == "TEST":
             from hkex.config.appsettings_test import APPSETTINGS
+        elif ENV == "PROD":
+            from hkex.config.appsettings_prod import APPSETTINGS
         else:
             raise Exception(f"{ENV} is not a valid environment")
 

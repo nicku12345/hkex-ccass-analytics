@@ -13,7 +13,7 @@ RUN pip install -r requirements.txt
 # CMD gunicorn -b 0.0.0.0:$PORT 'mining:create_app()'
 
 # For local deployment, simply use a fixed port ($PORT=5000) is fine
-CMD gunicorn -b 0.0.0.0:5000 'hkex:create_app()'
+CMD gunicorn -b 0.0.0.0:5000 'hkex:create_app("PROD")'
 
 # Deployment using waitress is not recommended.
 # Waitress has a known issue where it will duplicate logging messages
