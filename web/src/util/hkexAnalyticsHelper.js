@@ -11,7 +11,7 @@ function getHost() {
 	}
 }
 
-export function checkStockCodeValidaty(stockCode) {
+export function checkStockCodeValidity(stockCode) {
 	const disallowedCharacters = "~!@#$%^&*()"
 	if (stockCode.length === 0)
 		return [ false, "Stock Code is empty" ]

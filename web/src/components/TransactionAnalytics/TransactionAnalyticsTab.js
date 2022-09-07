@@ -4,7 +4,7 @@ import { Stack } from "@mui/system";
 import TransactionAnalyticsForm from "./TransactionAnalyticsForm";
 // import { MOCK_transactionsAnalytics } from "../../fake/MOCK_transactionsAnalytics";
 import TransactionAnalyticsTable from "./TransactionAnalyticsTable";
-import { checkStockCodeValidaty, getTransactionAnalytics } from "../../util/hkexAnalyticsHelper";
+import { checkStockCodeValidity, getTransactionAnalytics } from "../../util/hkexAnalyticsHelper";
 import LoadingDialog from "../Shared/LoadingDialog";
 import AlertDialog from "../Shared/AlertDialog";
 
@@ -17,7 +17,7 @@ function TransactionAnalyticsTab( props ) {
 	const [alertMsg, setAlertMsg] = useState("")
 
 	const handleFormOnSubmit = async (stockCode, startDate, endDate, threshold) => {
-		const [ stockCodeValid, errMsg ] = checkStockCodeValidaty(stockCode)
+		const [ stockCodeValid, errMsg ] = checkStockCodeValidity(stockCode)
 		if (!stockCodeValid)
 		{
 			setIsAlert(true)
@@ -34,7 +34,7 @@ function TransactionAnalyticsTab( props ) {
 		if (!api_success)
 		{
 			setIsAlert(true)
-			setAlertMsg("External API failed. This error may happen because external server is under maintenance or the stock data on requested date range is unavailable. Please consider querying for a smaller date range. For now some dummy test data is being rendered.")
+			setAlertMsg("External API failed. This error may happen because (1) the requested stock code does not exist or is not available for query; (2) external server is under maintenance; or (3) the stock data on requested date range is empty. Please consider querying for a smaller date range. For now some dummy test data is being rendered.")
 		}
 
 		api_data.forEach((transactionAnalytics) => {
