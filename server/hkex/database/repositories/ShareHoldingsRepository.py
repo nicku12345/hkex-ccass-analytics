@@ -8,10 +8,21 @@ from hkex.database.models.Participant import Participant
 class ShareHoldingsRepository(BaseRepository):
 
     def GetShareHoldingByStockCodeAndDates(self, stockCode: str, startDate: date, endDate: date):
-        return self._db.session.query(ShareHolding).\
+        shareholdings = self._db.session.query(ShareHolding).\
             filter(ShareHolding.StockCode == stockCode).\
             filter(startDate <= func.DATE(ShareHolding.Date)).\
             filter(func.DATE(ShareHolding.Date) <= endDate).all()
+
+        seenShareholdingsSQLValues = set()
+        distinctShareHolding = []
+        for sh in shareholdings:
+            if sh.SQLValue() in seenShareholdingsSQLValues:
+                continue
+
+            seenShareholdingsSQLValues.add(sh.SQLValue())
+            distinctShareHolding.append(sh)
+
+        return distinctShareHolding
 
     def AddShareHoldings(self, shareholdings):
         if not shareholdings:

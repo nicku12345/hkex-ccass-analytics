@@ -9,10 +9,21 @@ from hkex.database.models.Participant import Participant
 class ParticipantsRepository(BaseRepository):
 
     def GetParticipantsByStockCodeAndDates(self, stockCode: str, startDate: date, endDate: date):
-        return self._db.session.query(Participant).\
+        participants = self._db.session.query(Participant).\
             filter(Participant.StockCode == stockCode).\
             filter(startDate <= func.DATE(Participant.Date)).\
             filter(func.DATE(Participant.Date) <= endDate).all()
+
+        seenParticipantsSQLValues = set()
+        distinctParticipants = []
+        for p in participants:
+            if p.SQLValue() in seenParticipantsSQLValues:
+                continue
+
+            seenParticipantsSQLValues.add(p.SQLValue())
+            distinctParticipants.append(p)
+        
+        return distinctParticipants
 
     def AddParticipants(self, participants: list[Participant]):
         '''
